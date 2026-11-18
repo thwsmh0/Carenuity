@@ -3,7 +3,7 @@
 #include <WebServer.h>
 #include <HTTPClient.h>
 #include <Adafruit_BMP085.h>
-#include <U8g2lib.h> // Nutzt U8g2 für saubere 64x48 Ansteuerung
+#include <U8g2lib.h>
 #include <time.h>
 
 // WLAN Zugangsdaten
@@ -13,7 +13,7 @@ const char* password = "WLAN_Password";
 // Webserver auf Port 80
 WebServer server(80);
 
-// U8g2 Display-Konfiguration für 0.66" 64x48 I2C OLED (Nutzt die I2C Pins 8 & 10)
+// Display-Konfiguration
 U8G2_SSD1306_64X48_ER_F_HW_I2C u8g2(U8G2_R0, U8X8_PIN_NONE);
 
 // BMP180 Sensor
@@ -27,12 +27,12 @@ String apiStatus = "API: Aktiv";
 unsigned long lastApiCall = 0;
 const long apiInterval = 60000; // API alle 60 Sekunden abfragen
 
-// NTP Zeitserver Konfiguration für Deutschland (MEZ/MESZ)
+// NTP Zeitserver Konfiguration für Deutschland
 const char* ntpServer = "pool.ntp.org";
 const long gmtOffset_sec = 3600;
 const int daylightOffset_sec = 3600;
 
-// Echte HTTP-API abrufen (erfüllt die API-Vorgabe für Level 3)
+// HTTP-API abrufen
 void fetchAPI() {
   if (WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
@@ -91,7 +91,7 @@ void setup() {
   Serial.begin(115200);
   delay(1000);
   
-  // I2C Initialisierung für ESP32-C3 (SDA = 8, SCL = 10)
+  // I2C Initialisierung für ESP32-C3
   Wire.begin(8, 10);
 
   // U8g2 Display starten
